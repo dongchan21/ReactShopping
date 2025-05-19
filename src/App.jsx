@@ -1,47 +1,61 @@
 import { useState } from 'react'
 import './App.css'
 import {Navbar, Container, Nav} from 'react-bootstrap';
-import Row from 'react-bootstrap/Row';
-import Col from 'react-bootstrap/Col';
 import data from './data.js';
+import Home from './routes/Home.jsx';
+import Detail from './routes/Detail.jsx';
+import {BrowserRouter, Routes, Route, Link, useNavigate, Outlet} from 'react-router-dom'
 
 function App() {
 
   let [shoes] = useState(data);
-
+  let navigate = useNavigate();
+  
   return (
     <div className="App">
+        
       <Navbar bg="dark" data-bs-theme="dark">
         <Container>
           <Navbar.Brand href="#home">ShoeShop</Navbar.Brand>
           <Nav className="me-auto">
-            <Nav.Link href="#home">Home</Nav.Link>
-            <Nav.Link href="#features">Cart</Nav.Link>
+            <Nav.Link onClick ={()=>{navigate('/')}}>Home</Nav.Link>
+            <Nav.Link onClick ={()=>{navigate('/detail/:id')}}>Detail</Nav.Link>
           </Nav>
         </Container>
       </Navbar>
 
-      <div className="main-bg"></div>
+      
+      <Routes>
+        <Route path="/" element={<Home shoes={shoes} />} />
+        <Route path = "/detail/:id" element = {<Detail shoes={shoes}/>} />
+        <Route path = "/about" element = {<About />}>
+          <Route path = "location" element = {<div>로케이션임</div>}/>
+          <Route path = "member" element = {<About />}/>
+        </Route>
+        <Route path = "*" element = {<div>없는 페이지에요!</div>} />
+      </Routes>
 
-    <Container>
-      <Row>
-        {shoes.map((a, i) => (
-          <Card shoes={shoes[i]} i={i+1}/>
-        ))}
-      </Row>
-    </Container>
-
+    
     </div>
   );
 }
 
-function Card({shoe}) {
-  return (
-      <Col sm>
-      <img src={shoe.imageUrl} width="80%"/>
-      <h4>{shoe.title}</h4>
-      <p>{shoe.price}원</p>
-      </Col>
-  );
+function About(){
+  return(
+    <div>
+      <h4>회사정보임</h4>
+      <Outlet></Outlet>
+    </div>
+  )
 }
+
+function Event(){
+  return(
+    <div>
+      <h4>오늘의 이벤트</h4>
+      <Outlet></Outlet>
+    </div>
+  )
+}
+
 export default App
