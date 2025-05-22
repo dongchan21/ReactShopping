@@ -1,6 +1,6 @@
 let data = [
   {
-    id : 1,
+    id : 0,
     imageUrl : "https://codingapple1.github.io/shop/shoes1.jpg",
     title : "White and Black",
     content : "Born in France",
@@ -8,7 +8,7 @@ let data = [
   },
 
   {
-    id : 2,
+    id : 1,
     imageUrl : "https://codingapple1.github.io/shop/shoes2.jpg",
     title : "Red Knit",
     content : "Born in Seoul",
@@ -16,7 +16,7 @@ let data = [
   },
 
   {
-    id : 3,
+    id : 2,
     imageUrl : "https://codingapple1.github.io/shop/shoes3.jpg",
     title : "Grey Yordan",
     content : "Born in the States",

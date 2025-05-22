@@ -1,19 +1,34 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import './App.css'
 import {Navbar, Container, Nav} from 'react-bootstrap';
 import data from './data.js';
 import Home from './routes/Home.jsx';
 import Detail from './routes/Detail.jsx';
 import {BrowserRouter, Routes, Route, Link, useNavigate, Outlet} from 'react-router-dom'
+import axios from 'axios';
 
 function App() {
 
-  let [shoes] = useState(data);
+  let [shoes, setShoes] = useState(data);
   let navigate = useNavigate();
-  
+  useEffect(() => {
+  console.log("shoes 변경됨:", shoes);
+}, [shoes]);
+
   return (
     <div className="App">
-        
+      
+      <button onClick={()=>{
+      axios.get('https://codingapple1.github.io/shop/data2.json').then((결과)=>{
+        let copy = [...shoes, ...결과.data]
+        setShoes(copy)
+        console.log(shoes)
+      })
+      .catch(()=>{
+        console.log('실패함')
+      })
+    }}>버튼</button>
+
       <Navbar bg="dark" data-bs-theme="dark">
         <Container>
           <Navbar.Brand href="#home">ShoeShop</Navbar.Brand>
@@ -24,6 +39,7 @@ function App() {
         </Container>
       </Navbar>
 
+      
       
       <Routes>
         <Route path="/" element={<Home shoes={shoes} />} />
