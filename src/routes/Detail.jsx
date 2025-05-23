@@ -1,6 +1,8 @@
 import {useParams} from "react-router-dom";
 import {useState, useEffect} from 'react';
 import {Nav} from 'react-bootstrap';
+import '../App.css'
+
 
 export default function Detail(props) {
 
@@ -48,20 +50,25 @@ const imageUrl = `https://codingapple1.github.io/shop/shoes${Number(id) + 1}.jpg
       <Nav.Link onClick={()=>{ 탭변경(2) }} eventKey="link2">버튼2</Nav.Link>
     </Nav.Item>
     </Nav>
-<TabContent 탭={탭}/>
-    <TabContent/>
+<TabContent shoes={props.shoes} 탭={탭}/>
     </div>
   );
 }
 
-function TabContent(props){
-  if (props.탭 === 0){
-    return <div>내용0</div>
+function TabContent({shoes, 탭}){
+  let [fade, setFade] = useState('')
+  useEffect (()=>{
+  setTimeout(()=> {setFade('end')}, 10)
+
+  return () => {
+    clearTimeout()
+    setFade('')
   }
-  if (props.탭 === 1){
-    return <div>내용1</div>
-  }
-  if (props.탭 === 2){
-    return <div>내용2</div>
-  }
+  }, [탭])
+ 
+  return (
+    <div className={`start ${fade}`}>
+      { [<div>{shoes[0].title}</div>, <div>내용1</div>, <div>내용2</div>][탭] }
+    </div>
+  )
 }
