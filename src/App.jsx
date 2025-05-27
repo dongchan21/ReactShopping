@@ -4,6 +4,7 @@ import {Navbar, Container, Nav} from 'react-bootstrap';
 import data from './data.js';
 import Home from './routes/Home.jsx';
 import Detail from './routes/Detail.jsx';
+import Cart from './routes/Cart.jsx';
 import {BrowserRouter, Routes, Route, Link, useNavigate, Outlet} from 'react-router-dom'
 import axios from 'axios';
 
@@ -34,7 +35,8 @@ function App() {
           <Navbar.Brand href="#home">ShoeShop</Navbar.Brand>
           <Nav className="me-auto">
             <Nav.Link onClick ={()=>{navigate('/')}}>Home</Nav.Link>
-            <Nav.Link onClick ={()=>{navigate('/detail/:id')}}>Detail</Nav.Link>
+            <Nav.Link onClick ={()=>{navigate('/detail/0')}}>Detail</Nav.Link>
+            <Nav.Link onClick ={()=>{navigate('/cart')}}>Cart</Nav.Link>
           </Nav>
         </Container>
       </Navbar>
@@ -48,6 +50,7 @@ function App() {
           <Route path = "location" element = {<div>로케이션임</div>}/>
           <Route path = "member" element = {<About />}/>
         </Route>
+        <Route path="/cart" element={ <Cart/> } /> 
         <Route path = "*" element = {<div>없는 페이지에요!</div>} />
       </Routes>
 

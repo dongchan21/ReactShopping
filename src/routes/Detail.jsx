@@ -1,10 +1,13 @@
 import {useParams} from "react-router-dom";
 import {useState, useEffect} from 'react';
 import {Nav} from 'react-bootstrap';
-import '../App.css'
+import '../App.css';
+import { addItem } from "../store.js";
+import { useDispatch } from "react-redux";
 
 
-export default function Detail(props) {
+function Detail(props) {
+let dispatch = useDispatch();
 
 let {id} = useParams();
 let [alert, setalert] = useState(true)
@@ -36,7 +39,11 @@ const imageUrl = `https://codingapple1.github.io/shop/shoes${Number(id) + 1}.jpg
           <h4 className="pt-5">{props.shoes[id].title}</h4>
           <p>{props.shoes[id].content}</p>
           <p>{props.shoes[id].price}원</p>
-          <button className="btn btn-danger">주문하기</button> 
+          <button className="btn btn-danger"
+          onClick = {()=>{
+            dispatch(addItem( {id : props.shoes[id].id, name : props.shoes[id].title, count : 1} ))
+          }}
+          >주문하기</button> 
         </div>
       </div>
       <Nav variant="tabs"  defaultActiveKey="link0">
@@ -72,3 +79,5 @@ function TabContent({shoes, 탭}){
     </div>
   )
 }
+
+export default Detail
